@@ -5,48 +5,44 @@ const initialValues = {
   name: "Devesh",
   email: "",
   channel: "",
-}
+};
 
 const onSubmit = (values) => {
   console.log("Form Data", values);
-}
+};
 
-const validate = values=> {
-
+const validate = (values) => {
   //values.name values.email values.channel
   //error.name error.email error.channel
 
-  let errors = {}
+  let errors = {};
 
-  if(!values.name)
-  {
-    errors.name = 'Required'
+  if (!values.name) {
+    errors.name = "Required";
   }
-  if(!values.email)
-  {
-    errors.email = 'Required'
-  }
-  else if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(values.email))
-  {
-    errors.email = 'Invalid email format'
+  if (!values.email) {
+    errors.email = "Required";
+  } else if (
+    !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(values.email)
+  ) {
+    errors.email = "Invalid email format";
   }
 
-  if(!values.channel)
-  {
-    errors.channel = 'Required'
+  if (!values.channel) {
+    errors.channel = "Required";
   }
-  
-  return errors
-}
+
+  return errors;
+};
 
 function YoutubeForm() {
   const formik = useFormik({
     initialValues,
     onSubmit,
-    validate
+    validate,
   });
 
-  //console.log("Formik Values", formik.values);
+  console.log("Formik Values", formik.values);
 
   return (
     <div>
@@ -60,6 +56,7 @@ function YoutubeForm() {
             onChange={formik.handleChange}
             value={formik.values.name}
           />
+          {formik.errors.name ? <div className="error">{formik.errors.name}</div> : null}
         </div>
 
         <div className="form-control">
@@ -71,8 +68,8 @@ function YoutubeForm() {
             onChange={formik.handleChange}
             value={formik.values.email}
           />
+          {formik.errors.email ? <div className="error">{formik.errors.email}</div> : null}
         </div>
-
         <div className="form-control">
           <label htmlFor="channel">Channel</label>
           <input
@@ -82,6 +79,7 @@ function YoutubeForm() {
             onChange={formik.handleChange}
             value={formik.values.channel}
           />
+          {formik.errors.channel ? <div className="error">{formik.errors.channel}</div> : null}
         </div>
         <button type="submit">Submit</button>
       </form>

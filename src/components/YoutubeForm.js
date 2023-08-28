@@ -1,107 +1,50 @@
-import React from "react"
-import { useFormik } from "formik"
-import * as Yup from 'yup'
+import React from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 const initialValues = {
   name: "Devesh",
   email: "",
   channel: "",
-}
+};
 
 const onSubmit = (values) => {
   console.log("Form Data", values);
-}
-
-const validate = (values) => {
-  //values.name values.email values.channel
-  //error.name error.email error.channel
-
-  let errors = {};
-
-  if (!values.name) {
-    errors.name = "Required";
-  }
-  if (!values.email) {
-    errors.email = "Required";
-  } else if (
-    !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(values.email)
-  ) {
-    errors.email = "Invalid email format";
-  }
-
-  if (!values.channel) {
-    errors.channel = "Required";
-  }
-
-  return errors;
-}
+};
 
 const validationSchema = Yup.object({
   name: Yup.string().required(`Name Required`),
   email: Yup.string().email(`Invalid email format`).required(`Email Required`),
-  channel: Yup.string().required(`Channel Required`)
-})
+  channel: Yup.string().required(`Channel Required`),
+});
 
-function YoutubeForm() {
-  const formik = useFormik({
-    initialValues,
-    onSubmit,
-    validationSchema
-    // validate,
-  });
-
-  console.log("Visited fields", formik.touched);
-
+function OldYoutubeForm() {
   return (
-    <div>
-      <form onSubmit={formik.handleSubmit}>
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={onSubmit}
+    >
+      <Form>
         <div className="form-control">
           <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.name}
-          />
-          {formik.touched.name && formik.errors.name ? (
-            <div className="error">{formik.errors.name}</div>
-          ) : null}
+          <Field type="text" id="name" name="name" />
+          <ErrorMessage name="name" />
         </div>
-
         <div className="form-control">
           <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.email}
-          />
-          {formik.touched.email && formik.errors.email ? (
-            <div className="error">{formik.errors.email}</div>
-          ) : null}
+          <Field type="email" id="email" name="email" />
+          <ErrorMessage name="email" />
         </div>
         <div className="form-control">
           <label htmlFor="channel">Channel</label>
-          <input
-            type="text"
-            id="channel"
-            name="channel"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.channel}
-          />
-          {formik.touched.channel && formik.errors.channel ? (
-            <div className="error">{formik.errors.channel}</div>
-          ) : null}
+          <Field type="text" id="channel" name="channel" />
+          <ErrorMessage name="channel" />
         </div>
         <button type="submit">Submit</button>
-      </form>
-    </div>
+      </Form>
+    </Formik>
   );
 }
 
-export default YoutubeForm;
+export default OldYoutubeForm;

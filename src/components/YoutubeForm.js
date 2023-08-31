@@ -37,7 +37,11 @@ function OldYoutubeForm() {
         <div className="form-control">
           <label htmlFor="email">Email</label>
           <Field type="email" id="email" name="email" />
-          <ErrorMessage name="email" />
+          <ErrorMessage name="email">
+            {
+              (errorMessage)=><div className='error'>{errorMessage}</div>
+            }
+          </ErrorMessage>
         </div>
         <div className="form-control">
           <label htmlFor="channel">Channel</label>

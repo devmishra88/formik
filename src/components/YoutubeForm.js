@@ -6,7 +6,8 @@ const initialValues = {
   name: "Devesh",
   email: "",
   channel: "",
-  comments: ""
+  comments: "",
+  address: "",
 };
 
 const onSubmit = (values) => {
@@ -46,6 +47,21 @@ function OldYoutubeForm() {
           <label htmlFor="channel">Comments</label>
           <Field as="textarea" id="comments" name="comments" />
           <ErrorMessage name="channel" />
+        </div>
+        <div className="form-control">
+          <label htmlFor="address">Address</label>
+          <Field id="address" name="address">
+            {(props) => {
+              const { field, form, meta } = props;
+              /*console.log(`Render Props`, props)*/
+              return (
+                <div>
+                  <input type="text" id="address" {...field} />
+                  {meta.touched && meta.error ? <div>{meta.error}</div> : null}
+                </div>
+              );
+            }}
+          </Field>
         </div>
         <button type="submit">Submit</button>
       </Form>

@@ -10,9 +10,10 @@ const initialValues = {
   comments: "",
   address: "",
   social: {
-    facebook:'',
-    twitter:''
+    facebook: "",
+    twitter: "",
   },
+  phoneNumbers: ["", ""],
 };
 
 const onSubmit = (values) => {
@@ -42,9 +43,7 @@ function OldYoutubeForm() {
           <label htmlFor="email">Email</label>
           <Field type="email" id="email" name="email" />
           <ErrorMessage name="email">
-            {
-              (errorMessage)=><div className='error'>{errorMessage}</div>
-            }
+            {(errorMessage) => <div className="error">{errorMessage}</div>}
           </ErrorMessage>
         </div>
         <div className="form-control">
@@ -74,11 +73,19 @@ function OldYoutubeForm() {
         </div>
         <div className="form-control">
           <label htmlFor="facebook">Facebook Profile</label>
-          <Field type="text" id="facebook" name='social.facebook' />
+          <Field type="text" id="facebook" name="social.facebook" />
         </div>
         <div className="form-control">
           <label htmlFor="twitter">Twitter Profile</label>
-          <Field type="text" id="twitter" name='social.twitter' />
+          <Field type="text" id="twitter" name="social.twitter" />
+        </div>
+        <div className="form-control">
+          <label htmlFor="primaryPh">Primary Phone Number</label>
+          <Field type="text" id="primaryPh" name="phoneNumbers[0]" />
+        </div>
+        <div className="form-control">
+          <label htmlFor="secondaryPh">Secondary Phone Number</label>
+          <Field type="text" id="secondaryPh" name="phoneNumbers[1]" />
         </div>
         <button type="submit">Submit</button>
       </Form>

@@ -1,5 +1,12 @@
 import React from "react";
-import { Formik, Form, Field, ErrorMessage, FieldArray, FastField } from "formik";
+import {
+  Formik,
+  Form,
+  Field,
+  ErrorMessage,
+  FieldArray,
+  FastField,
+} from "formik";
 import * as Yup from "yup";
 import TextError from "./TextError";
 
@@ -27,14 +34,22 @@ const validationSchema = Yup.object({
   channel: Yup.string().required(`Channel Required`),
 });
 
+const validateComments = (value) => {
+  let error;
+
+  if (!value) {
+    error = "Comment Required";
+  }
+
+  return error;
+};
+
 function OldYoutubeForm() {
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
-      validateOnChange={false}
-      validateOnBlur={false}
     >
       <Form>
         <div className="form-control">
@@ -56,15 +71,20 @@ function OldYoutubeForm() {
         </div>
         <div className="form-control">
           <label htmlFor="channel">Comments</label>
-          <Field as="textarea" id="comments" name="comments" />
-          <ErrorMessage name="channel" />
+          <Field
+            as="textarea"
+            id="comments"
+            name="comments"
+            validate={validateComments}
+          />
+          <ErrorMessage name="comments" component={TextError} />
         </div>
         <div className="form-control">
           <label htmlFor="address">Address</label>
           <FastField id="address" name="address">
             {(props) => {
               const { field, form, meta } = props;
-              console.log(`Render Props`, props)
+              console.log(`Render Props`, props);
               return (
                 <div>
                   <input type="text" id="address" {...field} />
@@ -97,29 +117,35 @@ function OldYoutubeForm() {
         <div className="form-control">
           <label>List of phone numbers</label>
           <FieldArray name="phNumbers">
-            {
-            (fieldArrayProps)=>{
+            {(fieldArrayProps) => {
               /*console.log(`Field Array Props`,fieldArrayProps)*/
-              
-              const {push, remove, form} = fieldArrayProps
-              const { values } = form
-              const { phNumbers } = values
 
-              console.log(`Forms error`, form.errors)
+              const { push, remove, form } = fieldArrayProps;
+              const { values } = form;
+              const { phNumbers } = values;
 
-              return <div>
-                {
-                  phNumbers.map((phNumber, index)=>(
+              console.log(`Forms error`, form.errors);
+
+              return (
+                <div>
+                  {phNumbers.map((phNumber, index) => (
                     <div key={index}>
                       <Field name={`phNumbers[${index}]`} />
-                      {index > 0 && <button type="button" onClick={()=>remove(index)}> - </button>}
-                      <button type="button" onClick={()=>push(``)}> + </button>
+                      {index > 0 && (
+                        <button type="button" onClick={() => remove(index)}>
+                          {" "}
+                          -{" "}
+                        </button>
+                      )}
+                      <button type="button" onClick={() => push(``)}>
+                        {" "}
+                        +{" "}
+                      </button>
                     </div>
-                  ))
-                }
-              </div>
-            }
-            }
+                  ))}
+                </div>
+              );
+            }}
           </FieldArray>
         </div>
 

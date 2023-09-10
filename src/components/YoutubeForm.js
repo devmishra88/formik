@@ -198,6 +198,7 @@ function YoutubeForm() {
               Visits Fields
             </button> */}
             <button type="button" onClick={()=>setFormValues(savedValues)}>Load Saved Data</button>
+            <button type="reset">Reset Form Data</button>            
             <button type="submit" disabled={formik.isSubmitting}>Submit</button>
           </Form>
         );

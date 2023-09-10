@@ -177,7 +177,7 @@ function OldYoutubeForm() {
             })}>
               Visits Fields
             </button>
-            <button type="submit" disabled={!(formik.dirty && formik.isValid)}>Submit</button>
+            <button type="submit" disabled={!formik.isValid}>Submit</button>
           </Form>
         );
       }}

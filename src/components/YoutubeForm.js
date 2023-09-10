@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   Formik,
   Form,
@@ -16,6 +16,20 @@ const initialValues = {
   channel: "",
   comments: "",
   address: "",
+  social: {
+    facebook: "",
+    twitter: "",
+  },
+  phoneNumbers: ["", ""],
+  phNumbers: [""],
+}
+
+const savedValues = {
+  name: "Devesh",
+  email: "deveshmishra@live.in",
+  channel: "Devesh Pathshala",
+  comments: "welcome to formik",
+  address: "D-16 Shashi Garden",
   social: {
     facebook: "",
     twitter: "",
@@ -46,12 +60,16 @@ const validateComments = (value) => {
   return error;
 };
 
-function OldYoutubeForm() {
+function YoutubeForm() {
+
+  const [formValues, setFormValues] = useState(null)
+
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={formValues || initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
+      enableReinitialize
       // validateOnMount
     >
       {(formik) => {
@@ -156,7 +174,7 @@ function OldYoutubeForm() {
                 }}
               </FieldArray>
             </div>
-            <button
+            {/* <button
               type="button"
               onClick={() => formik.validateField(`comments`)}
             >
@@ -178,7 +196,8 @@ function OldYoutubeForm() {
               comments:true
             })}>
               Visits Fields
-            </button>
+            </button> */}
+            <button type="button" onClick={()=>setFormValues(savedValues)}>Load Saved Data</button>
             <button type="submit" disabled={formik.isSubmitting}>Submit</button>
           </Form>
         );
@@ -187,4 +206,4 @@ function OldYoutubeForm() {
   );
 }
 
-export default OldYoutubeForm;
+export default YoutubeForm;

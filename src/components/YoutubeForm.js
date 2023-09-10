@@ -24,8 +24,10 @@ const initialValues = {
   phNumbers: [""],
 };
 
-const onSubmit = (values) => {
+const onSubmit = (values, onSubmitProps) => {
   console.log("Form Data", values);
+  console.log(`submit props`, onSubmitProps)
+  onSubmitProps.setSubmitting(false)
 };
 
 const validationSchema = Yup.object({

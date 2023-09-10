@@ -88,7 +88,7 @@ function OldYoutubeForm() {
               <FastField id="address" name="address">
                 {(props) => {
                   const { field, form, meta } = props;
-                  console.log(`Render Props`, props);
+                  /*console.log(`Render Props`, props);*/
                   return (
                     <div>
                       <input type="text" id="address" {...field} />
@@ -130,7 +130,7 @@ function OldYoutubeForm() {
                   const { values } = form;
                   const { phNumbers } = values;
 
-                  console.log(`Forms error`, form.errors);
+                  /*console.log(`Forms error`, form.errors);*/
 
                   return (
                     <div>
@@ -177,7 +177,7 @@ function OldYoutubeForm() {
             })}>
               Visits Fields
             </button>
-            <button type="submit" disabled={!formik.isValid}>Submit</button>
+            <button type="submit" disabled={formik.isSubmitting}>Submit</button>
           </Form>
         );
       }}
